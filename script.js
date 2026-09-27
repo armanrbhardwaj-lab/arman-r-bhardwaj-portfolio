@@ -1,28 +1,23 @@
-const menu = document.querySelector('.menu');
-const nav = document.querySelector('.nav nav');
-
-menu?.addEventListener('click', () => {
-  const open = nav.dataset.open === 'true';
-  nav.dataset.open = String(!open);
-  nav.style.display = open ? '' : 'flex';
-  if (!open) {
+const button = document.querySelector('.hamburger');
+const nav = document.querySelector('.desktop-nav');
+button?.addEventListener('click', () => {
+  const open = nav.classList.toggle('mobile-open');
+  if (open) {
+    nav.style.display = 'flex';
     nav.style.position = 'absolute';
-    nav.style.top = '74px';
+    nav.style.top = '78px';
     nav.style.left = '0';
     nav.style.right = '0';
-    nav.style.padding = '18px 24px';
-    nav.style.background = '#07111f';
-    nav.style.borderBottom = '1px solid #20344d';
+    nav.style.padding = '20px 23px';
+    nav.style.background = '#f8f9fa';
+    nav.style.borderBottom = '1px solid #cbd1d5';
     nav.style.flexDirection = 'column';
     nav.style.alignItems = 'flex-start';
+  } else {
+    nav.style.display = '';
+    nav.removeAttribute('style');
   }
 });
-
-document.querySelectorAll('nav a').forEach(a => {
-  a.addEventListener('click', () => {
-    if (window.innerWidth <= 850) {
-      nav.dataset.open = 'false';
-      nav.style.display = '';
-    }
-  });
-});
+document.querySelectorAll('.desktop-nav a').forEach(a => a.addEventListener('click', () => {
+  if (window.innerWidth <= 800) { nav.classList.remove('mobile-open'); nav.removeAttribute('style'); }
+}));
